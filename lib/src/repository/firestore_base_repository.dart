@@ -215,16 +215,31 @@ Query _buildQuery({
 
   if (args != null) {
     for (final arg in args) {
-      ref = ref.where(
-        arg.field,
-        isEqualTo: arg.isEqualTo,
-        isGreaterThan: arg.isGreaterThan,
-        isGreaterThanOrEqualTo: arg.isGreaterThanOrEqualTo,
-        isLessThan: arg.isLessThan,
-        isLessThanOrEqualTo: arg.isLessThanOrEqualTo,
-        isNull: arg.isNull,
-        arrayContains: arg.arrayContains,
-      );
+      if (arg.isEqualTo != null) {
+        ref = ref.where(arg.field, isEqualTo: arg.isEqualTo);
+      }
+      if (arg.isGreaterThan != null) {
+        ref = ref.where(arg.field, isGreaterThan: arg.isGreaterThan);
+      }
+      if (arg.isGreaterThanOrEqualTo != null) {
+        ref = ref.where(
+          arg.field,
+          isGreaterThanOrEqualTo: arg.isGreaterThanOrEqualTo,
+        );
+      }
+      if (arg.isLessThan != null) {
+        ref = ref.where(arg.field, isLessThan: arg.isLessThan);
+      }
+      if (arg.isLessThanOrEqualTo != null) {
+        ref =
+            ref.where(arg.field, isLessThanOrEqualTo: arg.isLessThanOrEqualTo);
+      }
+      if (arg.isNull != null) {
+        ref = ref.where(arg.field, isNull: arg.isNull);
+      }
+      if (arg.arrayContains != null) {
+        ref = ref.where(arg.field, arrayContains: arg.arrayContains);
+      }
     }
   }
   if (orderBy != null) {
