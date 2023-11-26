@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:guid/guid.dart';
 
 import 'package:tapdevelops_core/src/model/serializable.dart';
 
@@ -10,7 +9,7 @@ import 'package:tapdevelops_core/src/model/serializable.dart';
 /// documents from the database
 abstract class IDatabaseEntity extends Equatable implements Serializable {
   /// Creates a new instance of [IDatabaseEntity].
-  GUID get id;
+  String get id;
 
   /// The date and time the document was created.
   DateTime get createdAt;

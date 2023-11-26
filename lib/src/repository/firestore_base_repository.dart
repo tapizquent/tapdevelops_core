@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
-import 'package:guid/guid.dart';
 import 'package:meta/meta.dart';
 import 'package:quiver/time.dart';
 import 'package:tapdevelops_core/src/core/from_json_factory.dart';
@@ -102,8 +101,8 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
   }
 
   @override
-  Stream<T?> getById({required GUID id}) {
-    return collection.doc(id.toString()).snapshots().map((snapShot) {
+  Stream<T?> getById({required String id}) {
+    return collection.doc(id).snapshots().map((snapShot) {
       if (!snapShot.exists) return null;
       return getFromJsonFactory(T, snapShot.data()! as Map<String, dynamic>);
     });
@@ -191,8 +190,8 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
   }
 
   @override
-  Future<void> delete({required GUID id}) {
-    return collection.doc(id.toString()).delete();
+  Future<void> delete({required String id}) {
+    return collection.doc(id).delete();
   }
 
   IDatabaseEntity _prepareItemForInsertion(T item) {

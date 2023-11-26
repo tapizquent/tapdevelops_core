@@ -1,4 +1,3 @@
-import 'package:guid/guid.dart';
 import 'package:tapdevelops_core/src/model/idatabase_entiry.dart';
 import 'package:tapdevelops_core/src/model/order_by.dart';
 import 'package:tapdevelops_core/src/model/query_arg.dart';
@@ -26,7 +25,7 @@ abstract class IBaseRepository<T extends IDatabaseEntity> {
   });
 
   /// Gets one item from the repository by id as a stream.
-  Stream<T?> getById({required GUID id});
+  Stream<T?> getById({required String id});
 
   /// Gets all items from the repository as a stream.
   Stream<List<T>> getAll({
@@ -50,5 +49,5 @@ abstract class IBaseRepository<T extends IDatabaseEntity> {
   Future<void> updateMany({required List<T> items});
 
   /// Deletes an item from the repository.
-  Future<void> delete({required GUID id});
+  Future<void> delete({required String id});
 }

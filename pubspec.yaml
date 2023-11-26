@@ -13,9 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
   get_it: ^7.6.4
-  guid:
-    git:
-      url: https://github.com/tapizquent/guid.git
   meta: ^1.10.0
   quiver: ^3.2.1
 
