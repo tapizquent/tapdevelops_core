@@ -156,7 +156,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
   @override
   Future<void> insert({required T item}) {
     final toInsert = _prepareItemForInsertion(item);
-    return collection.doc(toInsert.id.toString()).set(toInsert.toJson());
+    return collection.doc(toInsert.id).set(toInsert.toJson());
   }
 
   /// If the documents do not yet exist, they will be created.
@@ -166,7 +166,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
     final batch = firestore.batch();
     for (final item in items) {
       final toInsert = _prepareItemForInsertion(item);
-      final document = collection.doc(toInsert.id.toString());
+      final document = collection.doc(toInsert.id);
       batch.set(document, toInsert.toJson());
     }
     return batch.commit();
@@ -175,7 +175,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
   @override
   Future<void> update({required T item}) {
     final toUpdate = _prepareItemForUpdate(item);
-    return collection.doc(toUpdate.id.toString()).update(toUpdate.toJson());
+    return collection.doc(toUpdate.id).update(toUpdate.toJson());
   }
 
   @override
@@ -183,7 +183,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
     final batch = firestore.batch();
     for (final item in items) {
       final toUpdate = _prepareItemForUpdate(item);
-      final document = collection.doc(toUpdate.id.toString());
+      final document = collection.doc(toUpdate.id);
       batch.update(document, toUpdate.toJson());
     }
     return batch.commit();
