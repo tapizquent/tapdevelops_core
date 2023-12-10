@@ -15,20 +15,16 @@ import 'package:tapdevelops_core/src/repository/ibase_repository.dart';
 abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
     implements IBaseRepository<T> {
   /// The FirestoreBaseRepository constructor.
-  /// [collectionType] : The type of the collection. This is used to determine
   /// the path to the collection in the database.
   /// [clock] : The clock used to get the current time.
   /// [firestore] : The firestore instance to use. Defaults to the instance
   /// registered in the `DependencyInjectionManager`.
   FirestoreBaseRepository({
-    Type? collectionType,
     Clock? clock,
     FirebaseFirestore? firestore,
   })  : clock = clock ?? const Clock(),
         firestore = firestore ?? GetIt.I.get<FirebaseFirestore>() {
-    collection = this.firestore.collection(
-          collectionType != null ? collectionType.toString() : T.toString(),
-        );
+    collection = this.firestore.collection(getCollectionName<T>());
   }
 
   /// Do NOT override or set this field. This should only be modified by
