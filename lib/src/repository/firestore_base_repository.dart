@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'package:quiver/time.dart';
 import 'package:tapdevelops_core/src/core/from_json_factory.dart';
 import 'package:tapdevelops_core/src/core/is_null_or_empty.dart';
-import 'package:tapdevelops_core/src/model/idatabase_entiry.dart';
+import 'package:tapdevelops_core/src/model/idatabase_entity.dart';
 import 'package:tapdevelops_core/src/model/order_by.dart';
 import 'package:tapdevelops_core/src/model/query_arg.dart';
 import 'package:tapdevelops_core/src/repository/ibase_repository.dart';
@@ -90,8 +90,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
         final data = document.data();
         if (data == null || data is! Map<String, dynamic>) return null;
 
-        return getFromJsonFactory(T, document.data()! as Map<String, dynamic>)
-            as T?;
+        return getFromJsonFactory<T>(document.data()! as Map<String, dynamic>);
       },
     );
   }
@@ -100,7 +99,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
   Stream<T?> getById({required String id}) {
     return collection.doc(id).snapshots().map((snapShot) {
       if (!snapShot.exists) return null;
-      return getFromJsonFactory(T, snapShot.data()! as Map<String, dynamic>);
+      return getFromJsonFactory<T>(snapShot.data()! as Map<String, dynamic>);
     });
   }
 
@@ -141,7 +140,7 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
     return _getListFromQuery(
       query: query,
       mapper: (DocumentSnapshot document) =>
-          getFromJsonFactory(T, document.data()! as Map<String, dynamic>),
+          getFromJsonFactory<T>(document.data()! as Map<String, dynamic>),
       clientSideFilters: clientSideFilters,
       orderComparer: orderComparer,
     );

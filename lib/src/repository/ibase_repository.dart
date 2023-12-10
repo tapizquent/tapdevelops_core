@@ -1,4 +1,4 @@
-import 'package:tapdevelops_core/src/model/idatabase_entiry.dart';
+import 'package:tapdevelops_core/src/model/idatabase_entity.dart';
 import 'package:tapdevelops_core/src/model/order_by.dart';
 import 'package:tapdevelops_core/src/model/query_arg.dart';
 

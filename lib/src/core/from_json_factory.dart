@@ -1,4 +1,4 @@
-import 'package:tapdevelops_core/src/model/idatabase_entiry.dart';
+import 'package:tapdevelops_core/src/model/idatabase_entity.dart';
 
 /// JsonFactoryFunc
 ///
@@ -12,12 +12,11 @@ final Map<Type, String> _collectionName = {};
 
 /// Adds a factory to the map
 void addFromJsonFactory<T extends IDatabaseEntity>(
-  Type type,
   String collectionName,
   T Function(Map<String, Object?>) factoryFunction,
 ) {
-  _fromJsonFactory[type] = factoryFunction;
-  _collectionName[type] = collectionName;
+  _fromJsonFactory[T] = factoryFunction;
+  _collectionName[T] = collectionName;
 }
 
 /// Gets a collection name from the map
@@ -33,14 +32,13 @@ String getCollectionName<T extends IDatabaseEntity>() {
 
 /// Gets a factory from the map
 T getFromJsonFactory<T extends IDatabaseEntity?>(
-  Type type,
   Map<String, Object?> json,
 ) {
-  final factoryFunction = _fromJsonFactory[type];
+  final factoryFunction = _fromJsonFactory[T];
   if (factoryFunction != null) {
     return factoryFunction(json) as T;
   }
   throw Exception(
-    'The type $type is not registered inside the _fromJsonFactory',
+    'The type $T is not registered inside the _fromJsonFactory',
   );
 }
