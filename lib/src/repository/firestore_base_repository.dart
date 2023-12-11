@@ -197,6 +197,23 @@ abstract class FirestoreBaseRepository<T extends IDatabaseEntity>
   IDatabaseEntity _prepareItemForUpdate(T item) {
     return item.copyWith(updatedAt: clock.now().toUtc());
   }
+
+  @override
+  Query<T> getQuery({
+    List<QueryArg>? args,
+    List<OrderBy>? orderBy,
+    int? limit,
+  }) {
+    return _buildQuery(
+      collection: collection,
+      args: args,
+      orderBy: orderBy,
+      limit: limit,
+    ).withConverter(
+      fromFirestore: (snapshot, _) => getFromJsonFactory<T>(snapshot.data()!),
+      toFirestore: (item, _) => item.toJson(),
+    );
+  }
 }
 
 Query _buildQuery({

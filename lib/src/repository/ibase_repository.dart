@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tapdevelops_core/src/model/idatabase_entity.dart';
 import 'package:tapdevelops_core/src/model/order_by.dart';
 import 'package:tapdevelops_core/src/model/query_arg.dart';
@@ -50,4 +51,11 @@ abstract class IBaseRepository<T extends IDatabaseEntity> {
 
   /// Deletes an item from the repository.
   Future<void> delete({required String id});
+
+  /// Queries the repository. This is typically used with FirestoreListView
+  Query<T> getQuery({
+    List<QueryArg>? args,
+    List<OrderBy>? orderBy,
+    int? limit,
+  });
 }
